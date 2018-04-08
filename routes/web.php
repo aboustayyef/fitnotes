@@ -14,5 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/show/{year}/{month}/{day}', 'DayController@index');
+Route::get('/day/{year}/{month}/{day}', 'DayController@index');
 Route::resource('/workout', 'WorkoutController');
