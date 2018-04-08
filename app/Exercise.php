@@ -11,4 +11,5 @@ class Exercise extends Model
     public static function getByDate($year, $month, $day){
     	return static::whereDate('start','=', $year.'-'.$month.'-'.$day)->get();
     }
+
 }

@@ -19,9 +19,9 @@
 		<tr>
 			<th>Set #</th>
 		@foreach($focus as $focusItem)
-			<th width="25%">{{$focusItem}}</th>
+			<th width="28%">{{$focusItem}}</th>
 		@endforeach
-			<th width="7%">&nbsp;</th>
+			<th width="10%">&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,7 +29,11 @@
 			<tr>
 				<td>{{$key + 1}}</td>
 			@foreach($focus as $focusItem)
-				<td>{{$set[$focusItem]}}</td>
+				@if($focusItem == 'time')
+					<td>{{sprintf('%02d:%02d:%02d', ($set[$focusItem]/3600),($set[$focusItem]/60%60), $set[$focusItem]%60)}}</td>
+				@else
+					<td>{{$set[$focusItem]}}</td>
+				@endif
 			@endforeach
 				<td>
 					@if($set['done'])
