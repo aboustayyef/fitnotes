@@ -13,13 +13,32 @@
 		}
 	}
 ?>
-@foreach($exercise as $set)
-	@foreach($focus as $focusItem)
-		{{$focusItem}} =====
-	@endforeach
-	<hr>
-	@foreach($focus as $focusItem)
-		{{$set[$focusItem]}} =====
-	@endforeach
-	<hr>
-@endforeach()
+<table class="table is-fullwidth is-striped">
+	{{-- headers --}}
+	<thead>
+		<tr>
+			<th>Set #</th>
+		@foreach($focus as $focusItem)
+			<th width="25%">{{$focusItem}}</th>
+		@endforeach
+			<th width="7%">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach($exercise as $key => $set)
+			<tr>
+				<td>{{$key + 1}}</td>
+			@foreach($focus as $focusItem)
+				<td>{{$set[$focusItem]}}</td>
+			@endforeach
+				<td>
+					@if($set['done'])
+						&#10003;
+					@endif
+				</td>
+			</tr>
+		@endforeach()
+	</tbody>
+	
+</table>
+{{-- data --}}
