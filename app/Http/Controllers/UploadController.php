@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exercise;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UploadController extends Controller
 {
@@ -15,7 +16,7 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-        $request->csv->storeAs('/', 'exercises.csv');
+        $request->csv->storeAs('/', Auth::user()->id. '_exercises.csv');
         return \App\CsvImporter::process();
         // to do: redirect to success page or Error
     }

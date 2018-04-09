@@ -14,7 +14,7 @@
         }
     </style>
     <body>
-        <form action="{{route('workout.store')}}" method="post" enctype="multipart/form-data">
+        <form action="/upload" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             <div class="file">
                 <label class="file-label">
@@ -26,5 +26,6 @@
                 &nbsp;
                 <button id="nameOfFile" type="submit" class="button is-warning">Upload</button>
             </div>
+        </form>
     </body>
 </html>

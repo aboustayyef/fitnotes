@@ -1,10 +1,11 @@
 <?php
 
 namespace App;
-use App\Workout;
+use App\Exercise;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use League\Csv\Reader;
 use \DB;
 
@@ -12,42 +13,42 @@ class CsvImporter
 {
     private $csv;
     public static function process(){
-        $csv = Reader::createFromPath(storage_path() . '/app/workouts.csv');
-        // clear exisiting database
-        DB::table('workouts')->truncate(); 
+        $csv = Reader::createFromPath(storage_path() . '/app/'.Auth::user()->id.'_exercises.csv');
+        // clear exisiting records for user
+        if (Auth::user()->exercises()->count() > 0) {
+            Auth::user()->exercises()->delete();
+        }
+        DB::table('exercises')->truncate(); 
         // Remove Headers
-        $workouts = collect($csv->setOffset(1)->fetchAll());
-        // return $workouts;    
-        $workouts = $workouts->map(function($workout){
+        $exercises = collect($csv->setOffset(1)->fetchAll());
+        // return $exercises;    
+        $exercises = $exercises->map(function($exercise){
 
             // handle multiple categories into one string
-            $categories = $workout[13];
-            if (sizeof($workout) > 14){
-                for ($i=14; $i < sizeof($workout); $i++) { 
-                    $categories .= ' '. $workout[$i];
+            $categories = $exercise[13];
+            if (sizeof($exercise) > 14){
+                for ($i=14; $i < sizeof($exercise); $i++) { 
+                    $categories .= ' '. $exercise[$i];
                 }
             }
             return [
-                'name' => $workout[0], // Name of Workout
-                'start' => new Carbon($workout[1] . ' ' . $workout[2]), // start timestamp
-                'end' => new Carbon($workout[3] . ' ' . $workout[4]), // end timestamp
-                'bodyweight' => (float) $workout[5],
-                'exercise' => $workout[6],
-                'equipment' => $workout[7],
-                'reps' => (int) $workout[8],
-                'weight' => (float) $workout[9],
+                'name' => $exercise[0], // Name of exercise
+                'start' => new Carbon($exercise[1] . ' ' . $exercise[2]), // start timestamp
+                'end' => new Carbon($exercise[3] . ' ' . $exercise[4]), // end timestamp
+                'bodyweight' => (float) $exercise[5],
+                'exercise' => $exercise[6],
+                'equipment' => $exercise[7],
+                'reps' => (int) $exercise[8],
+                'weight' => (float) $exercise[9],
                 // convert "00:00:00" to seconds. source in link below:
                 // https://stackoverflow.com/questions/4834202/convert-time-in-hhmmss-format-to-seconds-only
-                'time' => strlen($workout[10]) > 0 ? strtotime("1970-01-01 " . $workout[10] . " UTC") : 0,
-                'distance' => (int) $workout[11],
-                'done' => $workout[12] == "Done" ? 1 : 0,
+                'time' => strlen($exercise[10]) > 0 ? strtotime("1970-01-01 " . $exercise[10] . " UTC") : 0,
+                'distance' => (int) $exercise[11],
+                'done' => $exercise[12] == "Done" ? 1 : 0,
                 'categories' => $categories
             ];
         });
-        foreach ($workouts as $key => $workout) {
-            Workout::create($workout);
-        }
-        return $workouts;
+        Auth::user()->createMany($exercises);
     }
 
     public function index(Request $request){

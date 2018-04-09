@@ -12,4 +12,8 @@ class Exercise extends Model
     	return static::whereDate('start','=', $year.'-'.$month.'-'.$day)->get();
     }
 
+    public function user(){
+    	return $this->belongsTo(\App\User::class);
+    }
+
 }
