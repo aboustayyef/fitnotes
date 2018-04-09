@@ -48,7 +48,7 @@ class CsvImporter
                 'categories' => $categories
             ];
         });
-        Auth::user()->createMany($exercises);
+        Auth::user()->exercises()->createMany($exercises->toArray());
     }
 
     public function index(Request $request){
