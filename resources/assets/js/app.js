@@ -16,7 +16,15 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('fitnotes-viewer', require('./components/FitnotesViewer.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+    	fnData: {}
+    },
+    mounted(){
+    	window.localStorage.setItem('fnData', JSON.stringify({"success":true}));
+    	this.fnData = window.localStorage.getItem('fnData');
+    }
 });

@@ -11,8 +11,8 @@
 |
 */
 
-Auth::routes();
+Route::post('/upload', 'UploadController@store');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/upload', 'UploadController@store')->middleware('auth');
-Route::get('/day/{year}/{month}/{day}', 'DayController@index')->middleware('auth');
+Route::get('/',function(){ return redirect('home');});
+Route::get('/day/{year}/{month}/{day}', 'DayController@index');
 
