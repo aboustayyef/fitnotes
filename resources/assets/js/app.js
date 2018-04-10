@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import Datepicker from 'vuejs-datepicker';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -17,6 +18,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('fitnotes-viewer', require('./components/FitnotesViewer.vue'));
+Vue.component('datepicker', Datepicker);
 
 const app = new Vue({
     el: '#app',
@@ -24,7 +26,11 @@ const app = new Vue({
     	fnData: {}
     },
     mounted(){
-    	window.localStorage.setItem('fnData', JSON.stringify({"success":true}));
-    	this.fnData = window.localStorage.getItem('fnData');
+    	axios.get('/fnData')
+    	.then(data => {
+    		this.fnData = data.data;
+    	});
+    	// window.localStorage.setItem('fnData', JSON.stringify({"success":true}));
+    	// this.fnData = window.localStorage.getItem('fnData');
     }
 });

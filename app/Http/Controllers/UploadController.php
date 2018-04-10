@@ -16,7 +16,7 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-        $request->csv->storeAs('/', Auth::user()->id. '_exercises.csv');
+        $request->csv->storeAs('/','exercises.csv');
         return \App\CsvImporter::process();
         // to do: redirect to success page or Error
     }

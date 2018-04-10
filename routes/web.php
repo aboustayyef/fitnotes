@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,13 @@
 |
 */
 
+// getting data using ajax requests
+Route::get('/fnData', function(){
+	// if (!Cache::has('fnData')) {
+	// 	return null;
+	// }
+	return Cache::get('fnData');	
+});
 Route::post('/upload', 'UploadController@store');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/',function(){ return redirect('home');});

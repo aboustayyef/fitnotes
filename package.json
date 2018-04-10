@@ -20,6 +20,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "bulma": "^0.6.2"
+        "bulma": "^0.6.2",
+        "vuejs-datepicker": "^0.9.29"
     }
 }

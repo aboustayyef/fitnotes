@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use League\Csv\Reader;
 use \DB;
 
@@ -13,12 +14,8 @@ class CsvImporter
 {
     private $csv;
     public static function process(){
-        $csv = Reader::createFromPath(storage_path() . '/app/'.Auth::user()->id.'_exercises.csv');
-        // clear exisiting records for user
-        if (Auth::user()->exercises()->count() > 0) {
-            Auth::user()->exercises()->delete();
-        }
-        DB::table('exercises')->truncate(); 
+        $csv = Reader::createFromPath(storage_path() . '/app/exercises.csv');
+
         // Remove Headers
         $exercises = collect($csv->setOffset(1)->fetchAll());
         // return $exercises;    
@@ -33,8 +30,8 @@ class CsvImporter
             }
             return [
                 'name' => $exercise[0], // Name of exercise
-                'start' => new Carbon($exercise[1] . ' ' . $exercise[2]), // start timestamp
-                'end' => new Carbon($exercise[3] . ' ' . $exercise[4]), // end timestamp
+                'start' => $exercise[1] . ' ' . $exercise[2], // start timestamp
+                'end' => $exercise[3] . ' ' . $exercise[4], // end timestamp
                 'bodyweight' => (float) $exercise[5],
                 'exercise' => $exercise[6],
                 'equipment' => $exercise[7],
@@ -48,7 +45,8 @@ class CsvImporter
                 'categories' => $categories
             ];
         });
-        Auth::user()->exercises()->createMany($exercises->toArray());
+        Cache::forever('fnData', $exercises);
+        // Auth::user()->exercises()->createMany($exercises->toArray());
     }
 
     public function index(Request $request){
