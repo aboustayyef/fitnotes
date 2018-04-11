@@ -14010,19 +14010,36 @@ Vue.component('fitnotes-viewer', __webpack_require__(44));
 Vue.component('datepicker', __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a);
 
 var app = new Vue({
-  el: '#app',
-  data: {
-    fnData: {}
-  },
-  mounted: function mounted() {
-    var _this = this;
+    el: '#app',
+    data: {
+        fnData: {}
+    },
+    methods: {
+        clearStorage: function clearStorage() {
+            console.log('local storage is being cleared');
+            window.localStorage.clear();
+        }
+    },
+    mounted: function mounted() {
+        var _this = this;
 
-    axios.get('/fnData').then(function (data) {
-      _this.fnData = data.data;
-    });
-    // window.localStorage.setItem('fnData', JSON.stringify({"success":true}));
-    // this.fnData = window.localStorage.getItem('fnData');
-  }
+        // check if offline data exists
+        var offlineData = window.localStorage.getItem('fnData');
+
+        // if offline data does exist, use it as base for app
+        if (!offlineData === null) {
+            this.fnData = offlineData;
+        } else {
+            // if no offline data exists, check to see if data has just been imported
+            axios.get('/fnData').then(function (data) {
+                _this.fnData = data.data;
+                // if data was imported, add to local storage
+                window.localStorage.setItem('fnData', JSON.stringify(_this.fnData));
+            });
+        }
+
+        // this.fnData = window.localStorage.getItem('fnData');
+    }
 });
 
 /***/ }),

@@ -23,14 +23,31 @@ Vue.component('datepicker', Datepicker);
 const app = new Vue({
     el: '#app',
     data: {
-    	fnData: {}
+    	fnData: {},
+    },
+    methods:{
+        clearStorage(){
+            console.log('local storage is being cleared');
+            window.localStorage.clear();
+        }
     },
     mounted(){
-    	axios.get('/fnData')
-    	.then(data => {
-    		this.fnData = data.data;
-    	});
-    	// window.localStorage.setItem('fnData', JSON.stringify({"success":true}));
+        // check if offline data exists
+        let offlineData = window.localStorage.getItem('fnData');
+        
+        // if offline data does exist, use it as base for app
+        if (! offlineData === null ) {
+            this.fnData = offlineData;
+        } else {
+            // if no offline data exists, check to see if data has just been imported
+            axios.get('/fnData')
+                .then(data => {
+                this.fnData = data.data;
+                // if data was imported, add to local storage
+            	window.localStorage.setItem('fnData', JSON.stringify(this.fnData));
+            });   
+        }
+        
     	// this.fnData = window.localStorage.getItem('fnData');
     }
 });

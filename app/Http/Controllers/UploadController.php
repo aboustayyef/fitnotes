@@ -16,6 +16,10 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'csv'   =>  'required|mimes:csv,txt'
+        ]);
         $request->csv->storeAs('/','exercises.csv');
         return \App\CsvImporter::process();
         // to do: redirect to success page or Error

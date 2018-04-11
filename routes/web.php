@@ -13,15 +13,19 @@ use Illuminate\Support\Facades\Cache;
 |
 */
 
-// getting data using ajax requests
+// Home. Where everything happens
+Route::get('/',function(){ return redirect('home');});
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Uploading the data
+Route::post('/upload', 'UploadController@store');
+
+// AJAX
 Route::get('/fnData', function(){
-	// if (!Cache::has('fnData')) {
-	// 	return null;
-	// }
+	if (!Cache::has('fnData')) {
+		return null;
+	}
 	return Cache::get('fnData');	
 });
-Route::post('/upload', 'UploadController@store');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/',function(){ return redirect('home');});
-Route::get('/day/{year}/{month}/{day}', 'DayController@index');
+// Route::get('/day/{year}/{month}/{day}', 'DayController@index');
 
