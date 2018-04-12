@@ -46,6 +46,6 @@ class CsvImporter
             ];
         });
         Cache::put('fnData', $exercises, 5);
-        return redirect('home')->with('fn_message','Data Imported Succesfully');
+        return Cache::get('fnData'); 
     }
 }

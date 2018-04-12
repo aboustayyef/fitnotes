@@ -1,8 +1,6 @@
 <template>
-    <div class="container">
-        <div v-if="typeof(fnData) == 'object'">
-            Pick Date: <datepicker :highlighted="dateList" v-on:input="dateChange"></datepicker>
-        </div>
+    <div v-if="fnData">
+        Pick Date: <datepicker :highlighted="dateList" v-on:input="dateChange"></datepicker>
     </div>
 </template>
 
