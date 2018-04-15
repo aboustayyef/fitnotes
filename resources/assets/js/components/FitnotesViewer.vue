@@ -3,8 +3,9 @@
         <div v-if="fnData">
             Pick Date: <datepicker 
                 :highlighted="dateList" 
+                :inline="true"
                 v-on:input="dateChange">
-                    
+                  
                 </datepicker>
         </div>
         <hr>
