@@ -25,7 +25,7 @@ Route::get('/fnData', function(){
 	if (!Cache::has('fnData')) {
 		return null;
 	}
-	return Cache::get('fnData');	
+	return Cache::get('fnData')->groupBy(['day','name','exercise']);	
 });
 // Route::get('/day/{year}/{month}/{day}', 'DayController@index');
 

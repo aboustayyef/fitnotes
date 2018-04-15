@@ -1,6 +1,23 @@
 <template>
-    <div v-if="fnData">
-        Pick Date: <datepicker :highlighted="dateList" v-on:input="dateChange"></datepicker>
+    <div>
+        <div v-if="fnData">
+            Pick Date: <datepicker 
+                :highlighted="dateList" 
+                v-on:input="dateChange">
+                    
+                </datepicker>
+        </div>
+        <div v-if="selected_date_workouts">
+            <div v-for="workoutName in Object.keys(selected_date_workouts)">
+                <h2>{{workoutName}}</h2>
+                <div v-for="exerciseName in Object.keys(selected_date_workouts[workoutName])">
+                    <h4>{{exerciseName}}</h4>
+                    <div v-for="setIndex in Object.keys(selected_date_workouts[workoutName][exerciseName])">
+                        ------ Set # {{setIndex}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -9,34 +26,32 @@
         props: ['fnData'],
         data(){
             return {
-                selected_date:'',
+                selected_date:null,
+                selected_date_workouts:null, // workout A, workout B, cardio ...etc,
+                selected_date_exercises_by_workout: null
             }
         },
         computed: {
             dateList(){
-                if (typeof(this.fnData) == "object" && this.fnData.length > 0) {
-                    return {dates: this.fnData.map(x => new Date(x.start) )};
+                if (this.fnData) {
+                    var d = Object.keys(this.fnData).map((x) => new Date(x));
+                    return {'dates': d};
                 }
-            },
-            selectedDateExercises(){
-                if (typeof(this.fnData) == "object" && this.fnData.length > 0) {
-                    return this.fnData.filter((dt) => {
-                         let a = new Date(dt.start);
-                         let b = new Date(this.selected_date);
-                         return (a.getFullYear() === b.getFullYear()) &&
-                               (a.getMonth() === b.getMonth()) &&
-                               (a.getDate() == b.getDate());
-                    })
-                }
+                return null;
             }
         },
         methods: {
             dateChange(the_date){
-                this.selected_date = the_date;
+                this.selected_date = moment(the_date).format('YYYY-MM-DD') || null;
+                this.selected_date_workouts = this.fnData[this.selected_date] || null;
             },
             filterByDay(day)
             {
                 //logic               
+            },
+            test()
+            {
+                
             },
         },
         mounted(){

@@ -11,6 +11,7 @@ window.Vue = require('vue');
 import Datepicker from 'vuejs-datepicker';
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.css';
+window.moment = require('moment');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,7 +28,7 @@ const app = new Vue({
     el: '#app',
     data: {
         status: 'Finding Out Status...',
-    	fnData: {},
+    	fnData: null,
         dropzoneOptions: {
           url: '/upload',
           paramName:'csv',
@@ -48,7 +49,7 @@ const app = new Vue({
 
             // if offline data does exist, use it as base for app
             if (offlineData) {
-                this.fnData = offlineData;
+                this.fnData = JSON.parse(offlineData);
                 this.status = 'Found data from local storage';
             } else {
             // if no offline data exists, check to see if data has just been imported

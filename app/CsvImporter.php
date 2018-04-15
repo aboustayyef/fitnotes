@@ -32,6 +32,7 @@ class CsvImporter
                 'name' => $exercise[0], // Name of exercise
                 'start' => $exercise[1] . ' ' . $exercise[2], // start timestamp
                 'end' => $exercise[3] . ' ' . $exercise[4], // end timestamp
+                'day' => (new Carbon($exercise[1] . ' ' . $exercise[2]))->toDateString(),
                 'bodyweight' => (float) $exercise[5],
                 'exercise' => $exercise[6],
                 'equipment' => $exercise[7],
