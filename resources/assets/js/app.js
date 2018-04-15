@@ -22,6 +22,7 @@ window.moment = require('moment');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('fitnotes-viewer', require('./components/FitnotesViewer.vue'));
 Vue.component('datepicker', Datepicker);
+Vue.component('set-table', require('./components/SetTable.vue'));
 Vue.component('vue2-dropzone', vue2Dropzone);
 
 const app = new Vue({

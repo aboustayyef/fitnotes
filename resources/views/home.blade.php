@@ -8,14 +8,14 @@
 <hr>
 <div class="container">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<vue2-dropzone 
 		        ref="myVueDropzone" id="dropzone" 
 		        :options="dropzoneOptions"
 		        v-on:vdropzone-complete="refreshData()"
 		    >
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-9">
 			<fitnotes-viewer :fn-data="fnData"></fitnotes-viewer>
 		</div>
 	</div>

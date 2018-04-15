@@ -7,14 +7,13 @@
                     
                 </datepicker>
         </div>
+        <hr>
         <div v-if="selected_date_workouts">
             <div v-for="workoutName in Object.keys(selected_date_workouts)">
                 <h2>{{workoutName}}</h2>
                 <div v-for="exerciseName in Object.keys(selected_date_workouts[workoutName])">
                     <h4>{{exerciseName}}</h4>
-                    <div v-for="setIndex in Object.keys(selected_date_workouts[workoutName][exerciseName])">
-                        ------ Set # {{setIndex}}
-                    </div>
+                    <set-table :sets="selected_date_workouts[workoutName][exerciseName]">       </set-table>
                 </div>
             </div>
         </div>
