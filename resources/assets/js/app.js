@@ -40,38 +40,21 @@ const app = new Vue({
          this.checkForNewData();
     },
     methods:{
-        clearStorage(){
-            console.log('local storage is being cleared');
-            window.localStorage.clear();
-        },
         checkForNewData(){
-            // check if offline data exists
-            let offlineData = window.localStorage.getItem('fnData');
-
-            // if offline data does exist, use it as base for app
-            if (offlineData) {
-                this.fnData = JSON.parse(offlineData);
-                this.status = 'Found data from local storage';
-            } else {
-            // if no offline data exists, check to see if data has just been imported
+            // Check to see if data has just been imported
             axios.get('/fnData')
-                .then(data => {
-                this.fnData = data.data;
-                if (this.fnData === "") {
-                    this.status = 'Tried getting data from Ajax call, but got an empty string';
-                    return;
-                }
-                // if data was imported, add to local storage
-                window.localStorage.setItem('fnData', JSON.stringify(this.fnData));
-                this.status = 'Got data from Ajax call to /fnData and saved to localstorage';
-                });   
+            .then(data => {
+            this.fnData = data.data;
+            if (this.fnData === "") {
+                this.status = 'Need To Upload New File';
+                return;
             }
+            // if data was imported, add to local storage
+            this.status = 'Data From Uploaded File';
+            });   
         },
         refreshData(){
-            this.clearStorage();
             this.checkForNewData();
         }
-        
-    	// this.fnData = window.localStorage.getItem('fnData');
     }
 });

@@ -30502,41 +30502,23 @@ var app = new Vue({
     },
 
     methods: {
-        clearStorage: function clearStorage() {
-            console.log('local storage is being cleared');
-            window.localStorage.clear();
-        },
         checkForNewData: function checkForNewData() {
             var _this = this;
 
-            // check if offline data exists
-            var offlineData = window.localStorage.getItem('fnData');
-
-            // if offline data does exist, use it as base for app
-            if (offlineData) {
-                this.fnData = JSON.parse(offlineData);
-                this.status = 'Found data from local storage';
-            } else {
-                // if no offline data exists, check to see if data has just been imported
-                axios.get('/fnData').then(function (data) {
-                    _this.fnData = data.data;
-                    if (_this.fnData === "") {
-                        _this.status = 'Tried getting data from Ajax call, but got an empty string';
-                        return;
-                    }
-                    // if data was imported, add to local storage
-                    window.localStorage.setItem('fnData', JSON.stringify(_this.fnData));
-                    _this.status = 'Got data from Ajax call to /fnData and saved to localstorage';
-                });
-            }
+            // Check to see if data has just been imported
+            axios.get('/fnData').then(function (data) {
+                _this.fnData = data.data;
+                if (_this.fnData === "") {
+                    _this.status = 'Need To Upload New File';
+                    return;
+                }
+                // if data was imported, add to local storage
+                _this.status = 'Data From Uploaded File';
+            });
         },
         refreshData: function refreshData() {
-            this.clearStorage();
             this.checkForNewData();
         }
-
-        // this.fnData = window.localStorage.getItem('fnData');
-
     }
 });
 

@@ -46,7 +46,7 @@ class CsvImporter
                 'categories' => $categories
             ];
         });
-        Cache::put('fnData', $exercises, 5);
+        Cache::put('fnData', $exercises, 1);
         return Cache::get('fnData'); 
     }
 }
