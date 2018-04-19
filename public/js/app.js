@@ -30482,51 +30482,14 @@ window.moment = __webpack_require__(0);
 
 Vue.component('example-component', __webpack_require__(173));
 Vue.component('day-chooser', __webpack_require__(176));
+Vue.component('app', __webpack_require__(191));
 Vue.component('fitnotes-viewer', __webpack_require__(179));
 Vue.component('datepicker', __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a);
 Vue.component('set-table', __webpack_require__(182));
 Vue.component('vue2-dropzone', __WEBPACK_IMPORTED_MODULE_1_vue2_dropzone___default.a);
 
 var app = new Vue({
-    el: '#app',
-    data: {
-        status: 'Finding Out Status...',
-        fnData: null,
-        dataLoaded: false,
-        selected_date_workouts: null,
-        dropzoneOptions: {
-            url: '/upload',
-            paramName: 'csv',
-            headers: { "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content }
-        }
-    },
-    mounted: function mounted() {
-        this.checkForNewData();
-    },
-
-    methods: {
-        checkForNewData: function checkForNewData() {
-            var _this = this;
-
-            // Check to see if data has just been imported
-            axios.get('/fnData').then(function (data) {
-                _this.fnData = data.data;
-                if (_this.fnData === "") {
-                    _this.status = 'Need To Upload New File';
-                    return;
-                }
-                // if data was imported, add to local storage
-                _this.status = 'Data From Uploaded File';
-                _this.dataLoaded = true;
-            });
-        },
-        updateSelectedData: function updateSelectedData(s) {
-            this.selected_date_workouts = s;
-        },
-        refreshData: function refreshData() {
-            this.checkForNewData();
-        }
-    }
+  el: '#app'
 });
 
 /***/ }),
@@ -68209,6 +68172,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['fnData'],
@@ -68255,7 +68219,11 @@ var render = function() {
           [
             _vm._v("\n        Pick Date: "),
             _c("datepicker", {
-              attrs: { highlighted: _vm.dateList, inline: true },
+              attrs: {
+                highlighted: _vm.dateList,
+                inline: true,
+                "bootstrap-styling": true
+              },
               on: { input: _vm.dateChange }
             })
           ],
@@ -68894,6 +68862,263 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 190 */,
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(192)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(194)
+/* template */
+var __vue_template__ = __webpack_require__(195)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-8142f38c"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/App.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8142f38c", Component.options)
+  } else {
+    hotAPI.reload("data-v-8142f38c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(193);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(185)("267c2bb2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8142f38c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./App.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8142f38c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./App.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 194 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            status: 'Finding Out Status...',
+            fnData: null,
+            dataLoaded: false,
+            selected_date_workouts: null,
+            dropzoneOptions: {
+                url: '/upload',
+                paramName: 'csv',
+                clickable: '#uploadButton',
+                thumbnailWidth: 50,
+                dictDefaultMessage: "Drag your CSV file here or tap to upload",
+                headers: { "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content }
+            }
+        };
+    },
+    mounted: function mounted() {
+        this.checkForNewData();
+    },
+
+    methods: {
+        fileChanged: function fileChanged() {
+            console.log('file changed');
+        },
+        checkForNewData: function checkForNewData() {
+            var _this = this;
+
+            // Check to see if data has just been imported
+            axios.get('/fnData').then(function (data) {
+                _this.fnData = data.data;
+                if (_this.fnData === "") {
+                    _this.status = 'Need To Upload New File';
+                    return;
+                }
+                // if data was imported, add to local storage
+                _this.status = 'Data From Uploaded File';
+                _this.dataLoaded = true;
+            });
+        },
+        updateSelectedData: function updateSelectedData(s) {
+            this.selected_date_workouts = s;
+        },
+        refreshData: function refreshData() {
+            this.checkForNewData();
+        }
+    }
+});
+
+/***/ }),
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-6" },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "btn btn-primary btn-large",
+                attrs: { id: "uploadButton" }
+              },
+              [
+                _vm._v(
+                  "\n                    Click to Import CSV\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("vue2-dropzone", {
+              ref: "myVueDropzone",
+              attrs: { id: "dropzone", options: _vm.dropzoneOptions },
+              on: {
+                "vdropzone-complete": function($event) {
+                  _vm.refreshData()
+                }
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        this.dataLoaded === true
+          ? _c(
+              "div",
+              { staticClass: "col-md-6" },
+              [
+                _c("day-chooser", {
+                  attrs: { "fn-data": _vm.fnData },
+                  on: { dayselected: _vm.updateSelectedData }
+                })
+              ],
+              1
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12" },
+          [
+            _c("fitnotes-viewer", {
+              attrs: { selected_date_workouts: this.selected_date_workouts }
+            })
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-8142f38c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

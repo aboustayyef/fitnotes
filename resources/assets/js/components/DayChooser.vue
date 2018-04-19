@@ -4,6 +4,7 @@
             Pick Date: <datepicker 
                 :highlighted="dateList" 
                 :inline="true"
+                :bootstrap-styling="true"
                 v-on:input="dateChange">
                   
                 </datepicker>

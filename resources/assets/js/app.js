@@ -21,47 +21,12 @@ window.moment = require('moment');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('day-chooser', require('./components/DayChooser.vue'));
+Vue.component('app', require('./components/App.vue'));
 Vue.component('fitnotes-viewer', require('./components/FitnotesViewer.vue'));
 Vue.component('datepicker', Datepicker);
 Vue.component('set-table', require('./components/SetTable.vue'));
 Vue.component('vue2-dropzone', vue2Dropzone);
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        status: 'Finding Out Status...',
-    	fnData: null,
-        dataLoaded: false,
-        selected_date_workouts:null,
-        dropzoneOptions: {
-          url: '/upload',
-          paramName:'csv',
-          headers: { "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content }
-      }
-    },
-    mounted(){
-         this.checkForNewData();
-    },
-    methods:{
-        checkForNewData(){
-            // Check to see if data has just been imported
-            axios.get('/fnData')
-            .then(data => {
-            this.fnData = data.data;
-            if (this.fnData === "") {
-                this.status = 'Need To Upload New File';
-                return;
-            }
-            // if data was imported, add to local storage
-            this.status = 'Data From Uploaded File';
-            this.dataLoaded = true;
-            });   
-        },
-        updateSelectedData(s){
-            this.selected_date_workouts = s;
-        },
-        refreshData(){
-            this.checkForNewData();
-        }
-    }
+    el: '#app'
 });
