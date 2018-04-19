@@ -1,13 +1,12 @@
 <template>
     <div>
         <div v-if="fnData">
-            Pick Date: <datepicker 
+            <datepicker 
                 :highlighted="dateList" 
-                :inline="true"
-                :bootstrap-styling="true"
-                v-on:input="dateChange">
-                  
-                </datepicker>
+                :inline = true
+                :bootstrap-styling = true
+                v-on:input = "dateChange" >
+            </datepicker>
         </div>
     </div>
 </template>

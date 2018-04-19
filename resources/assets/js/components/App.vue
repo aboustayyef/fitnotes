@@ -2,25 +2,32 @@
     <div>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <div id="uploadButton" class="btn btn-primary btn-large">
-                        Click to Import CSV
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <vue2-dropzone 
+                                ref="myVueDropzone" id="dropzone" 
+                                :options="dropzoneOptions"
+                                v-on:vdropzone-complete="refreshData()"
+                            >
+                            </vue2-dropzone>
+                        </div>
+                        <div class="col-md-12">
+                            <div v-if="this.dataLoaded === true">
+                                <day-chooser 
+                                    v-on:dayselected="updateSelectedData" 
+                                    :fn-data="fnData">
+                                </day-chooser>
+                            </div>
+                        </div>
                     </div>
-                    <vue2-dropzone 
-                        ref="myVueDropzone" id="dropzone" 
-                        :options="dropzoneOptions"
-                        v-on:vdropzone-complete="refreshData()"
-                    >
-                    </vue2-dropzone>
                 </div>
-                <div v-if="this.dataLoaded === true" class="col-md-6">
-                    <day-chooser v-on:dayselected="updateSelectedData" :fn-data="fnData"></day-chooser>
+                <div class="col-md-7">
+                    <fitnotes-viewer :selected_date_workouts="this.selected_date_workouts">
+                    </fitnotes-viewer>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <fitnotes-viewer :selected_date_workouts="this.selected_date_workouts"></fitnotes-viewer>
-                </div>
+
             </div>
         </div>
     </div>
@@ -37,8 +44,7 @@
             dropzoneOptions: {
               url: '/upload',
               paramName:'csv',
-              clickable: '#uploadButton',
-              thumbnailWidth:50,
+              addRemoveLinks: true,
               dictDefaultMessage: "Drag your CSV file here or tap to upload",
               headers: { "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content }
           }
